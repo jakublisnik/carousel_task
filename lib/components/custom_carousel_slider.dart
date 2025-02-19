@@ -23,12 +23,14 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double carouselHeight = deviceHeight * 0.6;
     return Column(
       children: [
         CarouselSlider.builder(
           carouselController: widget.controller,
           options: CarouselOptions(
-            height: widget.isStoryStyle ? 220 : 500,
+            height: widget.isStoryStyle ? 220 : carouselHeight,
             enlargeCenterPage: true,
             enableInfiniteScroll: true,
             enlargeStrategy: CenterPageEnlargeStrategy.height,
