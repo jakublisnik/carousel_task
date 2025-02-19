@@ -1,5 +1,5 @@
 import 'package:carousel_task/providers/data_provider.dart';
-import 'package:carousel_task/views/first_carousel_view.dart';
+import 'package:carousel_task/views/landing_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  const FirstCarouselView(),
+      home:  const LandingView(),
     );
   }
 }

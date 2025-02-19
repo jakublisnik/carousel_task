@@ -5,9 +5,14 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class CustomCarouselSlider extends StatefulWidget {
   final List<String> loadedData;
   final CarouselSliderController controller;
+  final bool isStoryStyle;
 
-  const CustomCarouselSlider(
-      {super.key, required this.loadedData, required this.controller});
+  const CustomCarouselSlider({
+    super.key,
+    required this.loadedData,
+    required this.controller,
+    this.isStoryStyle = false,
+  });
 
   @override
   State<CustomCarouselSlider> createState() => _CustomCarouselSliderState();
@@ -15,7 +20,6 @@ class CustomCarouselSlider extends StatefulWidget {
 
 class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
   int activeIndex = 0;
-  final CarouselController controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
         CarouselSlider.builder(
           carouselController: widget.controller,
           options: CarouselOptions(
-            height: 500,
+            height: widget.isStoryStyle ? 220 : 500,
             enlargeCenterPage: true,
             enableInfiniteScroll: true,
             enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -38,13 +42,9 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             return buildImage(widget.loadedData[index]);
           },
         ),
-        const SizedBox(
-          height: 32,
-        ),
+        const SizedBox(height: 24),
         buildIndicator(),
-        const SizedBox(
-          height: 32,
-        ),
+        const SizedBox(height: 24),
         buildButtons(),
       ],
     );
@@ -53,11 +53,22 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
   Widget buildImage(String imageUrl) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      color: Colors.grey,
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-      ),
+      child: widget.isStoryStyle
+          ? ClipOval(
+              child: Image.network(
+                imageUrl,
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+            )
+          : Container(
+              color: Colors.grey,
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
     );
   }
 
@@ -65,6 +76,13 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
         activeIndex: activeIndex,
         count: widget.loadedData.length,
         onDotClicked: animateToSlide,
+        effect: widget.isStoryStyle
+            ? const WormEffect(
+                dotHeight: 7,
+                dotWidth: 7,
+                activeDotColor: Colors.blue,
+                spacing: 3)
+            : const ScrollingDotsEffect(maxVisibleDots: 5),
       );
 
   void animateToSlide(int index) => widget.controller.animateToPage(index);
@@ -72,14 +90,29 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
   Widget buildButtons() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () => widget.controller.previousPage(),
-            child: const Text('Previous'),
+          Semantics(
+            label: "Tlačítko pro zobrazení předchozího obrázku",
+            child: ElevatedButton(
+              onPressed: () => widget.controller.previousPage(),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(140, 50),
+                backgroundColor: Colors.grey[300],
+              ),
+              child:
+                  const Text('Předchozí', style: TextStyle(color: Colors.blue)),
+            ),
           ),
           const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: () => widget.controller.nextPage(),
-            child: const Text('Next'),
+          Semantics(
+            label: "Tlačítko pro zobrazení dalšího obrázku",
+            child: ElevatedButton(
+              onPressed: () => widget.controller.nextPage(),
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(140, 50),
+                backgroundColor: Colors.grey[300],
+              ),
+              child: const Text('Další', style: TextStyle(color: Colors.blue)),
+            ),
           ),
         ],
       );

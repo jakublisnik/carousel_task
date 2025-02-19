@@ -32,7 +32,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['cover_image_url'] = this.coverImageUrl;
+    data['cover_image_url'] = coverImageUrl;
     return data;
   }
 }
