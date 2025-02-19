@@ -55,15 +55,31 @@ lib/
 └── main.dart
 ```
 
-**Explanation of the Structure**
-components/: Contains reusable UI components like CustomCarouselSlider.
-constants/: Contains constant values used throughout the project, such as API endpoints.
-models/: Contains data models representing the structure of the data fetched from APIs.
-providers/: Contains provider classes for state management using the Provider package.
-services/: Contains service classes responsible for making API calls.
-views/: Contains the different views/screens of the application.
-main.dart: The entry point of the application.
-This structure was chosen to maintain a clear separation of concerns, making the codebase more modular, maintainable, and scalable.
+### 📝 **Explanation of the Structure**
+
+- **`components/`**:  
+  Contains **reusable UI components** like `CustomCarouselSlider`.  
+- **`constants/`**:  
+  Holds **constant values** used throughout the project, such as **API endpoints**.  
+- **`models/`**:  
+  Defines **data models** representing the **structure of data** fetched from APIs.  
+- **`providers/`**:  
+  Includes **provider classes** for **state management** using the **Provider** package.  
+- **`services/`**:  
+  Contains **service classes** responsible for **making API calls**.  
+- **`views/`**:  
+  Consists of **different views/screens** of the application.  
+- **`main.dart`**:  
+  The **entry point** of the application.  
+
+---
+
+### 🎯 **Why This Structure?**
+
+This structure was chosen to:  
+✅ Maintain a **clear separation of concerns**  
+✅ Make the codebase more **modular**  
+✅ Ensure it is **maintainable** and **scalable**  
 
 
 
